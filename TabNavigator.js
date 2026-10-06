@@ -27,14 +27,18 @@ export default function TabNavigator({ navigation}) {
                     } else if (route.name === 'Tasks') {
                         iconName = focused ? 'calendar' : 'calendar-outline';
                     } else if (route.name === 'Create') {
-                        iconName = focused ? 'add-circle' : 'add-circle-outline';
+                        iconName = createMenuOpen ? 'close-circle-outline' : 'add-circle-outline';
                     } else if (route.name === 'Habits') {
                         iconName = focused ? 'repeat' : 'repeat-outline';
                     } else if (route.name === 'Stats') {
                         iconName = focused ? 'stats-chart' : 'stats-chart-outline';
                     }
 
-                    return <Ionicons name={iconName} size={size} color={color}/>
+                    return <Ionicons 
+                    name={iconName} 
+                    size={route.name === 'Create' && createMenuOpen ? 30 : size} 
+                    color={route.name === 'Create' && createMenuOpen ? '#007AFF' : color}
+                    />
                 },
             })}
         >
