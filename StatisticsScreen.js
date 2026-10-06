@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-export default function TaskDetailsScreen() {
+export default function StatisticsScreen() {
   return (
     <View style={styles.container}>
-      <Text></Text>
+      <Text>This is the statistics screen</Text>
     </View>
   );
 }
