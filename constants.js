@@ -24,6 +24,13 @@ export const STATUS_COLORS = {
     [STATUS.MISSED]: "#ff7070",
 };
 
+export const HABIT_TIMING = {
+    DAILY: 'daily',
+    BIDAILY: 'bidaily',
+    WEEKLY: 'weekly',
+    MONTHLY: 'monthly',
+};
+
 // export const DEFAULT_CATEGORIES = [
 //     {
 //         id: 'work',

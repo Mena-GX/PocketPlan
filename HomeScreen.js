@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { TASK_PRIORITY } from './constants';
 import { STATUS } from './constants';
-import { FlatList } from 'react-native/types_generated/index';
+import { HABIT_TIMING } from './constants';
 // const priorityOptions = [
 //   {label: 'High', value: TASK_PRIORITY.HIGH},
 //   {label: 'Medium', value: TASK_PRIORITY.MEDIUM},
@@ -28,7 +28,7 @@ export default function HomeScreen() {
       title: 'Do MKTG HW',
       category: 'School',
       status: STATUS.INCOMPLETE,
-      dueDate: newDate(2026,9,20,23,59), //year, month, day, hour, minute
+      dueDate: new Date(2026,9,20,23,59), //year, month, day, hour, minute
       priority: TASK_PRIORITY.HIGH,
     },
 
@@ -37,7 +37,7 @@ export default function HomeScreen() {
       title: 'Go to Pharmacy',
       category: 'Other',
       status: STATUS.INCOMPLETE,
-      dueDate: newDate(2026,9,25,23,59), //year, month, day, hour, minute
+      dueDate: new Date(2026,9,25,23,59), //year, month, day, hour, minute
       priority: TASK_PRIORITY.MEDIUM,
     },
 
@@ -46,11 +46,32 @@ export default function HomeScreen() {
       title: 'Make Social Media Posts',
       category: 'Work',
       status: STATUS.INCOMPLETE,
-      dueDate: newDate(2026,9,31,23,59), //year, month, day, hour, minute
+      dueDate: new Date(2026,9,31,23,59), //year, month, day, hour, minute
       priority: TASK_PRIORITY.LOW,
     },
   ]);
-  const [habits, setHabits] = useState([]);
+
+  const [habits, setHabits] = useState([
+    {
+      id: 1,
+      title: 'Brush Teeth',
+      timing: HABIT_TIMING.BIDAILY,
+      status: STATUS.INCOMPLETE,
+    },
+
+    {
+      id: 2,
+      title: 'Take Pills',
+      timing: HABIT_TIMING.BIDAILY,
+      status: STATUS.INCOMPLETE,
+    },
+    {
+      id: 3,
+      title: 'Refill pillcase',
+      timing: HABIT_TIMING.BIDAILY,
+      status: STATUS.INCOMPLETE,
+    },
+  ]);
 
   return (
     <View style={styles.container}>
@@ -70,9 +91,23 @@ export default function HomeScreen() {
         </Text>
       </View>
       
-      <FlatList>
+      <FlatList
+        data={tasks}
+        keyExtractor={(item) => item.id}
+        renderItem={({item}) => (
+          <View style={styles.card}>
+            <View style={styles.details}>
+              <Text style={styles.taskTitle}>{item.title}</Text>
 
-      </FlatList>
+              <View style={styles.holder}>
+
+              </View>
+            </View>
+
+            <Pressable style={styles.statusButton}/>
+          </View>
+        )}
+      />
     </View>
   );
 }
@@ -87,8 +122,30 @@ const styles = StyleSheet.create({
 
   header: {
     paddingTop: 50,
-    borderBottomColor: "grey",
-    borderBottomWidth: 1,
+    // borderBottomColor: "grey",
+    // borderBottomWidth: 1,
     alignItems: 'center'
+  },
+
+  progressContainer: {
+    padding: 5,
+  },
+
+  progressBarBackground: {
+    backgroundColor: '#a5a3a3',
+    width: 300,
+    height: 50,
+    alignSelf: 'center',
+    borderRadius: 50,
+  },
+
+  progressBarFill: {
+    height: '100%',
+    backgroundColor: '#3863ff',
+    borderRadius: 50,
+  },
+
+  progressCount: {
+
   },
 });
