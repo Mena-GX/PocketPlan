@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { testDatabase } from './src/database/testDatabase';
+import { testCategoryRepository } from './src/database/testCategoryRepository';
 
 import TabNavigator from './TabNavigator';
 import CreateTaskScreen from './CreateTaskScreen';
@@ -12,13 +13,23 @@ import CreateHabitScreen from './CreateHabitScreen';
 export default function App() {
 
   //const Stack = createNativeStackNavigator();
+  // useEffect(() => {
+  //   testDatabase()
+  //   .then(() => {
+  //     console.log('Database test completed');
+  //   })
+  //   .catch((error) => {
+  //     console.error('Database test failed: ', error);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    testDatabase()
+    testCategoryRepository()
     .then(() => {
-      console.log('Database test completed');
+      console.log('Category repository test passed.');
     })
     .catch((error) => {
-      console.error('Database test failed: ', error);
+      console.error('Category repository test failed:', error);
     });
   }, []);
 
@@ -47,7 +58,7 @@ export default function App() {
     // </NavigationContainer>
 
     <View style={styles.container}>
-      <Text>PocketPlan database test</Text>
+      <Text>PocketPlan category repository test</Text>
     </View>
   );
 }
