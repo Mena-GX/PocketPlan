@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { testDatabase } from './src/database/testDatabase';
 import { testCategoryRepository } from './src/database/testCategoryRepository';
 import { testTaskRepository } from './src/database/testTaskRepository';
+import { testHabitRepository } from './src/database/testHabitRepository';
 
 import TabNavigator from './TabNavigator';
 import CreateTaskScreen from './CreateTaskScreen';
@@ -34,12 +35,20 @@ export default function App() {
   //   });
   // }, []);
 
+  // useEffect(() => {
+  //   testTaskRepository()
+  //   .then(() => console.log('Task repository test passed.'))
+  //   .catch((error) =>
+  //     console.error('Task repository test failed:', error)
+  //   );
+  // }, []);
+
   useEffect(() => {
-    testTaskRepository()
-    .then(() => console.log('Task repository test passed.'))
-    .catch((error) =>
-      console.error('Task repository test failed:', error)
-    );
+    testHabitRepository()
+      .then(() => console.log('Habit repository test passed.'))
+      .catch((error) =>
+        console.error('Habit repository test failed:', error)
+      );
   }, []);
 
   return (
