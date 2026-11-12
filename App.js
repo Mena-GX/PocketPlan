@@ -6,6 +6,7 @@ import { testDatabase } from './src/database/testDatabase';
 import { testCategoryRepository } from './src/database/testCategoryRepository';
 import { testTaskRepository } from './src/database/testTaskRepository';
 import { testHabitRepository } from './src/database/testHabitRepository';
+import { testOccurrenceRepository } from './src/database/testOccurrenceRepository';
 
 import TabNavigator from './TabNavigator';
 import CreateTaskScreen from './CreateTaskScreen';
@@ -43,13 +44,22 @@ export default function App() {
   //   );
   // }, []);
 
-  useEffect(() => {
-    testHabitRepository()
-      .then(() => console.log('Habit repository test passed.'))
-      .catch((error) =>
-        console.error('Habit repository test failed:', error)
-      );
-  }, []);
+  // useEffect(() => {
+  //   testHabitRepository()
+  //     .then(() => console.log('Habit repository test passed.'))
+  //     .catch((error) =>
+  //       console.error('Habit repository test failed:', error)
+  //     );
+  // }, []);
+
+    useEffect(() => {
+      testOccurrenceRepository()
+      .then(() => console.log('Occurrence repository test completed.'))
+      .catch((error) => console.error(
+        'Occurrence repository test failed: ',
+        error
+      ));
+    }, []);
 
   return (
     // <NavigationContainer>
