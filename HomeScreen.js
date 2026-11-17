@@ -2,7 +2,7 @@ import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from
 import React, {useCallback, useEffect, useState} from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
-import { getDailyData } from '.src/repositories/dailyRepository';
+import { getDailyData } from './src/repositories/dailyRepository';
 import { updateTaskStatus } from './src/repositories/taskRepository'
 import { updateOccurrenceStatus } from './src/repositories/occurrenceRepository';
 
@@ -158,14 +158,14 @@ export default function HomeScreen() {
         showsVerticalScrollIndicator={false}
       >
 
+        {/* App heading */}
         <View style={styles.header}>
-          <View>
             <Text style={styles.appName}>
               PocketPlan
             </Text>
-          </View>
         </View>
 
+        {/* Date Navigation */}
         <View style={styles.dateCard}>
           <View style={styles.dateNavigation}>
             <Pressable
@@ -185,7 +185,10 @@ export default function HomeScreen() {
               </Text>
             </View>
 
-            <Pressable>
+            <Pressable
+              style={styles.dateArrow}
+              onPress={() => changeDate(-1)}
+            >
               <Ionicons
                 name='arrow-forward'
                 size={24}
@@ -203,7 +206,109 @@ export default function HomeScreen() {
           </Pressable>
         </View>
 
-        
+        {/* Daily Progress */}
+        <View style={styles.progressCard}>
+          <Text style={styles.sectionTitle}>
+            Your daily progress
+          </Text>
+
+          <View style={styles.progressHeader}>  
+            <Text style={styles.progressPercentage}>
+              {progress?.percentage ?? 0}%
+            </Text>
+
+            <Text style={styles.progressDescription}>
+              {progress?.completed ?? 0} of {' '}
+              {progress?.total ?? 0} activities completed
+            </Text>
+          </View>
+
+          {/* Progress bar */}
+          <View style={styles.progressTrack}>
+            <View
+              style={[
+                styles.progressFill,
+                {
+                  width: `${progress?.percentage ?? 0}%`,
+                },
+              ]}
+            />
+          </View>
+
+          <View style={styles.progressFooter}>
+              <Text style={styles.progressSmallText}>
+                {progress?.completed ?? 0} completed
+              </Text>
+
+              <Text style={styles.progressSmallText}>
+                {progress?.remaining ?? 0} remaining
+              </Text>
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <View style={styles.sectionHeader}>
+            <Text style={styles.sectionTitle}>
+              Tasks
+            </Text>
+
+            <Text style={styles.sectionCount}>
+              {dailyData?.taskProgress?.completed ?? 0}/
+              {dailyData?.taskProgress?.total ?? 0}
+            </Text>
+          </View>
+
+          {dailyData?.tasks?.length === 0 ? (
+            <View style={styles.emptyCard}>
+              <Text style={styles.emptyTitle}>
+                No tasks scheduled!
+              </Text>
+
+              <Text style={styles.emptyDescription}>
+                Enjoy some free time or add something
+                to your day.
+              </Text>
+            </View>
+          ) : (
+            dailyData.tasks.map((task) => (
+              <View
+                key={task.id}
+                style={styles.activityCard}
+              >
+                <Pressable
+                  style={[
+                    styles.checkbox,
+                    task.status === 'complete' &&
+                      styles.checkboxComplete,
+                  ]}
+                  onPress={() => handleTaskToggle(task)}
+                >
+                  {task.status === 'comnplete' && (
+                    <Text style={styles.checkmark}>
+                      ✓
+                    </Text>
+                  )}
+                </Pressable>
+
+                <View style={styles.activityInfo}>
+                  <Text
+                    style={[
+                      styles.activityTitle,
+                      task.status === 'complete' &&
+                        styles.completedTitle
+                    ]}
+                  >
+                    {task.title}
+                  </Text>
+
+                  <View>
+                    
+                  </View>
+                </View>
+              </View>
+            ))
+          )}
+        </View>
       </ScrollView>
     </View>
   );
